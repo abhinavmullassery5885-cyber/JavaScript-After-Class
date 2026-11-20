@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Text Correction Tool</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background: #e0f2fe;
+        }
+
+        h1,
+        h3 {
+            color: #0369a1;
+        }
+
+        .box {
+            background: white;
+            color: #0369a1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container py-4">
+
+        <h1 class="mb-1">My Text Correction Tool</h1>
+        <p class="text-muted mb-4">Explore data types, convert values, correct sentences and handle errors!</p>
+
+        <!-- TOPIC 1: typeof -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h3 class="card-title">Explore Data Types</h3>
+                <button class="btn btn-info" onclick="checkTypes()">Display Types</button>
+                <div id="typeResult" class="box p-3 mt-3 rounded">Click to view the data types!</div>
+            </div>
+        </div>
+
+        <!-- TOPIC 2: Type Conversion -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h3 class="card-title">Value Converter</h3>
+                <button class="btn btn-info" onclick="convertTypes()">Convert Values</button>
+                <div id="convertResult" class="box p-3 mt-3 rounded">Click to convert the values!</div>
+            </div>
+        </div>
+
+        <!-- TOPIC 3: Search and Replace -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h3 class="card-title">Correct My Sentence</h3>
+                <p>Sentence: I love reading because reading is enjoyable.</p>
+                <button class="btn btn-info" onclick="replaceText()">Change Word</button>
+                <div id="replaceResult" class="box p-3 mt-3 rounded">Click to change a word!</div>
+            </div>
+        </div>
+
+        <!-- TOPIC 4: try/catch -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h3 class="card-title">Error Detector</h3>
+                <button class="btn btn-info" onclick="catchError()">Find Error</button>
+                <div id="errorResult" class="box p-3 mt-3 rounded">Click to test error handling!</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+        function checkTypes() {
+            var city = "Dubai";
+            var temperature = 32;
+            var schoolOpen = true;
+
+            document.getElementById("typeResult").innerHTML =
+                "City: " + typeof city + "<br>" +
+                "Temperature: " + typeof temperature + "<br>" +
+                "School Open: " + typeof schoolOpen;
+        }
+
+        function convertTypes() {
+            var priceText = "120";
+            var priceNumber = Number(priceText);
+            var quantity = 5;
+            var quantityText = String(quantity);
+
+            document.getElementById("convertResult").innerHTML =
+                '"120" as a number: ' + priceNumber + "<br>" +
+                "Type: " + typeof priceNumber + "<br><br>" +
+                "5 as text: " + quantityText + "<br>" +
+                "Type: " + typeof quantityText;
+        }
+
+        function replaceText() {
+            var sentence = "I love reading because reading is enjoyable.";
+            var newSentence = sentence.replace("reading", "drawing");
+
+            document.getElementById("replaceResult").innerHTML =
+                "Original: " + sentence + "<br><br>" +
+                "Corrected: " + newSentence;
+        }
+
+        function catchError() {
+            try {
+                var total = examMarks + 15;
+                document.getElementById("errorResult").innerHTML =
+                    "Total Marks: " + total;
+            }
+            catch (error) {
+                document.getElementById("errorResult").innerHTML =
+                    "Error detected: " + error.message;
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
