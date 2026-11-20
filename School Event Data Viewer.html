@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>School Fest Information Viewer</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff7ed;
+            color: #333333;
+            text-align: center;
+        }
+
+        .event-card {
+            width: 520px;
+            background-color: white;
+            border: 3px solid #f97316;
+            border-radius: 18px;
+            margin: 40px auto;
+            padding: 25px;
+            box-shadow: 0 0 18px #fdba74;
+        }
+
+        h1 {
+            color: #ea580c;
+        }
+
+        button {
+            background-color: #f97316;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #c2410c;
+        }
+
+        .info-box {
+            background-color: #fff7ed;
+            border: 2px dashed #fb923c;
+            border-radius: 12px;
+            margin-top: 18px;
+            padding: 15px;
+            text-align: left;
+            line-height: 1.7;
+        }
+
+        #status {
+            color: #16a34a;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        #jsonOutput {
+            color: #9a3412;
+            font-size: 14px;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="event-card">
+
+        <h1>School Fest Information Viewer</h1>
+
+        <p>
+            Click the button to discover school fest information
+            using JSON and asynchronous JavaScript.
+        </p>
+
+        <button onclick="showFestDetails()">View Fest Information</button>
+
+        <div class="info-box">
+            <h2>Current Status</h2>
+            <p id="status">Ready to load fest information...</p>
+        </div>
+
+        <div class="info-box">
+            <h2>Fest Information</h2>
+            <p id="eventDetails"></p>
+        </div>
+
+        <div class="info-box">
+            <h2>JSON Data</h2>
+            <p id="jsonOutput"></p>
+        </div>
+
+    </div>
+
+    <script>
+
+        // Callback function
+        function showLoadingMessage(message) {
+            document.getElementById("status").innerHTML = message;
+        }
+
+        // Creating a Promise
+        function fetchFestData(callback) {
+
+            callback("Fetching school fest information...");
+
+            return new Promise(function (resolve) {
+
+                // Asynchronous JavaScript using setTimeout()
+                setTimeout(function () {
+
+                    // JSON data
+                    let festData = {
+                        eventName: "School Cultural Fest",
+                        date: "15 December 2026",
+                        time: "09:30 AM",
+                        venue: "Main School Ground",
+                        coordinator: "Mr. Ahmed",
+                        participants: 150,
+                        isRegistrationOpen: true
+                    };
+
+                    resolve(festData);
+
+                }, 2000);
+            });
+        }
+
+        // Using async and await
+        async function showFestDetails() {
+
+            let eventData = await fetchFestData(showLoadingMessage);
+
+            document.getElementById("status").innerHTML =
+                "Fest information loaded successfully!";
+
+            // Converting object into JSON text
+            let jsonText = JSON.stringify(eventData);
+
+            // Converting JSON text back into an object
+            let parsedEvent = JSON.parse(jsonText);
+
+            // Creating the information message
+            let eventMessage = "";
+            eventMessage = eventMessage + "Fest Name: " + parsedEvent.eventName + "<br>";
+            eventMessage = eventMessage + "Date: " + parsedEvent.date + "<br>";
+            eventMessage = eventMessage + "Starting Time: " + parsedEvent.time + "<br>";
+            eventMessage = eventMessage + "Location: " + parsedEvent.venue + "<br>";
+            eventMessage = eventMessage + "Organiser: " + parsedEvent.coordinator + "<br>";
+            eventMessage = eventMessage + "Total Participants: " + parsedEvent.participants + "<br>";
+
+            if (parsedEvent.isRegistrationOpen === true) {
+                eventMessage = eventMessage + "Registration: Currently Open";
+            } else {
+                eventMessage = eventMessage + "Registration: Currently Closed";
+            }
+
+            document.getElementById("eventDetails").innerHTML = eventMessage;
+            document.getElementById("jsonOutput").innerHTML = jsonText;
+        }
+
+    </script>
+
+</body>
+
+</html>
